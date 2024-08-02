@@ -11,8 +11,8 @@ function updateDisplay() {
     display.textContent = displayValue;
     if (displayValue.length > 9) {
         display.textContent = displayValue.substring(0, 9);
-    }
-}
+    };
+};
 
 // Function to add event listener to buttons depending on their classes
 function clickButton() {
@@ -38,10 +38,10 @@ function clickButton() {
             } else if (buttons[i].classList.contains("percent")) {
                 handlePercent();
                 updateDisplay();
-            }
+            };
         });
-    }
-}
+    };
+};
 
 // Function to handle the input of operand
 function inputOperand(value) {
@@ -53,29 +53,36 @@ function inputOperand(value) {
         displayValue = firstOperand;
         isResultDisplayed = false;
     } else {
+        if (value === "0" && displayValue === "0") {
+            return;
+        }; 
         if (operator === "") {
             firstOperand += value;
             displayValue = firstOperand;
         } else {
             secondOperand += value;
             displayValue = secondOperand;
-        }
-    }
-}
+        };
+    };
+};
 
 // Function to handle the input of an operator
 function inputOperator(newOp) {
+    if (operator !== "") {
+        calculate();
+        updateDisplay();
+    }
     // If firstOperand is empty, return
     if (firstOperand === "") {
         return;
-    }
+    };
     // If secondOperand is not empty, calculate
     if (secondOperand !== "") {
         calculate();
-    }
+    };
     // Set operator to new operator
     operator = newOp;
-}
+};
 
 // Function to clear the display
 function clear() {
@@ -84,7 +91,7 @@ function clear() {
     operator = "";
     displayValue = "0";
     isResultDisplayed = false;
-}
+};
 
 // Function to calculate the result
 function calculate () {
@@ -98,14 +105,18 @@ function calculate () {
         } else if (operator === "*") {
             displayValue = parseFloat(firstOperand) * parseFloat(secondOperand);
         } else if (operator === "/") {
+            if (secondOperand === "0") {
+                displayValue = "ERROR :)";
+                return;
+            };
             displayValue = parseFloat(firstOperand) / parseFloat(secondOperand);
-        }
+        };
         firstOperand = displayValue;
         secondOperand = "";
         operator = "";
         isResultDisplayed = true;
-    }
-}
+    };
+};
 
 // Function to handle input of a decimal
 function inputDecimal() {
@@ -113,14 +124,57 @@ function inputDecimal() {
         if (!firstOperand.includes(".")) {
             firstOperand += ".";
             displayValue = firstOperand;
-        }
+        };
     } else {
         if (!secondOperand.includes(".")) {
             secondOperand += ".";
             displayValue = secondOperand;
-        }
-    }
-}
+        };
+    };
+};
+
+// Function to handle input of a sign
+function handleSign() {
+    if (operator === "") {
+        firstOperand = parseFloat(firstOperand) * -1;
+        if (Number.isNaN(firstOperand)) {
+            firstOperand = "";
+            displayValue = "0";
+            return;
+        };
+        displayValue = firstOperand;
+    } else {
+        secondOperand = parseFloat(secondOperand) * -1;
+        if (Number.isNaN(secondOperand)) {
+            firstOperand = "";
+            displayValue = "0";
+            return;
+        };
+        displayValue = secondOperand;
+    };
+};
+
+// Function to handle input of a percent
+function handlePercent() {
+    if (operator === "") {
+        firstOperand = parseFloat(firstOperand) / 100;
+        if (Number.isNaN(firstOperand)) {
+            firstOperand = "";
+            displayValue = "0";
+            return;
+        };
+        displayValue = firstOperand;
+    } else {
+        secondOperand = parseFloat(secondOperand) / 100;
+        if (Number.isNaN(secondOperand)) {
+            firstOperand = "";
+            displayValue = "0";
+            return;
+        };
+        displayValue = secondOperand;
+    };
+};
+
 
 // Call functions
 clickButton();
