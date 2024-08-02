@@ -38,6 +38,9 @@ function clickButton() {
             } else if (buttons[i].classList.contains("percent")) {
                 handlePercent();
                 updateDisplay();
+            } else if (buttons[i].classList.contains("delete")) {
+                handleDelete();
+                updateDisplay();
             };
         });
     };
@@ -111,6 +114,7 @@ function calculate () {
             };
             displayValue = parseFloat(firstOperand) / parseFloat(secondOperand);
         };
+        displayValue = roundTo(displayValue, 8);
         firstOperand = displayValue;
         secondOperand = "";
         operator = "";
@@ -175,6 +179,36 @@ function handlePercent() {
     };
 };
 
+// Function to handle delete
+function handleDelete() {
+    if (displayValue === "0") {
+        return;
+    } else {
+        if (operator === "") {
+            if (firstOperand.length === 1) {
+                firstOperand = "";
+                displayValue = "0";
+            } else {
+                firstOperand = firstOperand.slice(0, -1);
+                displayValue = firstOperand;
+            };
+        } else {
+            if (secondOperand.length === 1) {
+                secondOperand = "";
+                displayValue = "0";
+            } else {
+                secondOperand = secondOperand.slice(0, -1);
+                displayValue = secondOperand;
+            };
+        }
+    }
+}
+
+// Function to handle rounding the numbers
+function roundTo(num, places) {
+    const factor = Math.pow(10, places);
+    return Math.round(num * factor) / factor;
+};
 
 // Call functions
 clickButton();
