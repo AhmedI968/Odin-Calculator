@@ -51,14 +51,14 @@ function inputOperand(value) {
     }
 }
 
-function inputOperator(operator) {
+function inputOperator(newOp) {
     if (firstOperand === "") {
         return;
     }
     if (secondOperand !== "") {
         calculate();
     }
-    operator = operator;
+    operator = newOp;
 }
 
 // Call functions
