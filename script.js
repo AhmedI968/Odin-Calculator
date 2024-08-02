@@ -41,24 +41,39 @@ function clickButton() {
     }
 }
 
+// Function to handle the input of operand
 function inputOperand(value) {
+    // If operator is empty, input value to firstOperand
     if (operator === "") {
         firstOperand += value;
         displayValue = firstOperand;
     } else {
+        // If operator is not empty, input value to secondOperand
         secondOperand += value;
         displayValue = secondOperand;
     }
 }
 
+// Function to handle the input of an operator
 function inputOperator(newOp) {
+    // If firstOperand is empty, return
     if (firstOperand === "") {
         return;
     }
+    // If secondOperand is not empty, calculate
     if (secondOperand !== "") {
         calculate();
     }
+    // Set operator to new operator
     operator = newOp;
+}
+
+// Function to clear the display
+function clear() {
+    firstOperand = "";
+    secondOperand = "";
+    operator = "";
+    displayValue = "0";
 }
 
 // Call functions
