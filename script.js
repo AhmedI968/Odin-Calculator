@@ -1,6 +1,6 @@
 // Define variables
 const display = document.querySelector(".display");
-const buttons = document.querySelectorAll(".button");
+const buttons = document.querySelectorAll("button");
 let firstOperand = "";
 let secondOperand = "";
 let operator = "";
@@ -18,28 +18,48 @@ function clickButton() {
         buttons[i].addEventListener("click", function() {
             if (buttons[i].classList.contains("operand")){
                 inputOperand(buttons[i].value);
-                updateDisplay;
+                updateDisplay();
             } else if (buttons[i].classList.contains("operator")) {
                 inputOperator(buttons[i].value);
             } else if (buttons[i].classList.contains("clear")) {
                 clear();
-                updateDisplay;
+                updateDisplay();
             } else if (buttons[i].classList.contains("equals")) {
                 calculate();
-                updateDisplay;
+                updateDisplay();
             } else if (buttons[i].classList.contains("decimal")) {
                 inputDecimal();
-                updateDisplay;
+                updateDisplay();
             } else if (buttons[i].classList.contains("sign")) {
                 handleSign();
-                updateDisplay;
+                updateDisplay();
             } else if (buttons[i].classList.contains("percent")) {
                 handlePercent();
-                updateDisplay;
+                updateDisplay();
             }
         });
     }
 }
 
+function inputOperand(value) {
+    if (operator === "") {
+        firstOperand += value;
+        displayValue = firstOperand;
+    } else {
+        secondOperand += value;
+        displayValue = secondOperand;
+    }
+}
 
+function inputOperator(operator) {
+    if (firstOperand === "") {
+        return;
+    }
+    if (secondOperand !== "") {
+        calculate();
+    }
+    operator = operator;
+}
 
+// Call functions
+clickButton();
