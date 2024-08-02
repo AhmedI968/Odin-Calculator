@@ -4,7 +4,8 @@ const buttons = document.querySelectorAll("button");
 let firstOperand = "";
 let secondOperand = "";
 let operator = "";
-let displayValue = "";
+let displayValue = "0";
+let isResultDisplayed = false;
 
 function updateDisplay() {
     display.textContent = displayValue;
@@ -43,14 +44,20 @@ function clickButton() {
 
 // Function to handle the input of operand
 function inputOperand(value) {
-    // If operator is empty, input value to firstOperand
-    if (operator === "") {
-        firstOperand += value;
+    if (isResultDisplayed && operator === "") {
+        firstOperand = value;
+        secondOperand = "";
+        operator = "";
         displayValue = firstOperand;
+        isResultDisplayed = false;
     } else {
-        // If operator is not empty, input value to secondOperand
-        secondOperand += value;
-        displayValue = secondOperand;
+        if (operator === "") {
+            firstOperand += value;
+            displayValue = firstOperand;
+        } else {
+            secondOperand += value;
+            displayValue = secondOperand;
+        }
     }
 }
 
@@ -74,6 +81,28 @@ function clear() {
     secondOperand = "";
     operator = "";
     displayValue = "0";
+    isResultDisplayed = false;
+}
+
+// Function to calculate the result
+function calculate () {
+    if (firstOperand === "" || secondOperand === "") {
+        return;
+    } else {
+        if (operator === "+") {
+            displayValue = parseFloat(firstOperand) + parseFloat(secondOperand);
+        } else if (operator === "-") {
+            displayValue = parseFloat(firstOperand) - parseFloat(secondOperand);
+        } else if (operator === "*") {
+            displayValue = parseFloat(firstOperand) * parseFloat(secondOperand);
+        } else if (operator === "/") {
+            displayValue = parseFloat(firstOperand) / parseFloat(secondOperand);
+        }
+        firstOperand = displayValue;
+        secondOperand = "";
+        operator = "";
+        isResultDisplayed = true;
+    }
 }
 
 // Call functions
