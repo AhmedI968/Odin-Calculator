@@ -33,6 +33,9 @@ function clickButton() {
             } else if (buttons[i].classList.contains("sign")) {
                 handleSign();
                 updateDisplay;
+            } else if (buttons[i].classList.contains("percent")) {
+                handlePercent();
+                updateDisplay;
             }
         });
     }
