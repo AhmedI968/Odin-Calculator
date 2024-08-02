@@ -6,48 +6,35 @@ let secondOperand = "";
 let operator = "";
 let displayValue = "";
 
-// Functions to compute the basic 4 operations
-// Add
-function add(a, b) {
-    return a + b;
-}
-
-// Subtract
-function subtract(a, b) {
-    return a - b;
-}
-
-// Multiply
-function multiply(a, b) {
-    return a * b;
-}
-
-// Divide
-function divide(a, b) {
-    if (b === 0) {
-        return "Cannot divide by zero";
-    }
-    return a / b;
-}
-
-// Function that handles the operation
-function operate(firstNum, secondNum, operator) {
-    switch (operator) {
-        case "+":
-            return add(firstNum, secondNum);
-        case "-":
-            return subtract(firstNum, secondNum);
-        case "*":
-            return multiply(firstNum, secondNum);
-        case "/":
-            return divide(firstNum, secondNum);
-    }
-}
-
 function updateDisplay() {
     display.textContent = displayValue;
     if (displayValue.length > 9) {
         display.textContent = displayValue.substring(0, 9);
+    }
+}
+
+function clickButton() {
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function() {
+            if (buttons[i].classList.contains("operand")){
+                inputOperand(buttons[i].value);
+                updateDisplay;
+            } else if (buttons[i].classList.contains("operator")) {
+                inputOperator(buttons[i].value);
+            } else if (buttons[i].classList.contains("clear")) {
+                clear();
+                updateDisplay;
+            } else if (buttons[i].classList.contains("equals")) {
+                calculate();
+                updateDisplay;
+            } else if (buttons[i].classList.contains("decimal")) {
+                inputDecimal();
+                updateDisplay;
+            } else if (buttons[i].classList.contains("sign")) {
+                handleSign();
+                updateDisplay;
+            }
+        });
     }
 }
 
