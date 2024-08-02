@@ -14,6 +14,7 @@ function updateDisplay() {
     }
 }
 
+// Function to add event listener to buttons depending on their classes
 function clickButton() {
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener("click", function() {
@@ -44,6 +45,7 @@ function clickButton() {
 
 // Function to handle the input of operand
 function inputOperand(value) {
+    // If isResultDisplayed is true and operator is empty, reset the display so a new calculation is set
     if (isResultDisplayed && operator === "") {
         firstOperand = value;
         secondOperand = "";
@@ -102,6 +104,21 @@ function calculate () {
         secondOperand = "";
         operator = "";
         isResultDisplayed = true;
+    }
+}
+
+// Function to handle input of a decimal
+function inputDecimal() {
+    if (operator === "") {
+        if (!firstOperand.includes(".")) {
+            firstOperand += ".";
+            displayValue = firstOperand;
+        }
+    } else {
+        if (!secondOperand.includes(".")) {
+            secondOperand += ".";
+            displayValue = secondOperand;
+        }
     }
 }
 
