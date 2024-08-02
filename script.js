@@ -1,3 +1,11 @@
+// Define variables
+const display = document.querySelector(".display");
+const buttons = document.querySelectorAll(".button");
+let firstOperand = "";
+let secondOperand = "";
+let operator = "";
+let displayValue = "";
+
 // Functions to compute the basic 4 operations
 // Add
 function add(a, b) {
@@ -35,5 +43,13 @@ function operate(firstNum, secondNum, operator) {
             return divide(firstNum, secondNum);
     }
 }
+
+function updateDisplay() {
+    display.textContent = displayValue;
+    if (displayValue.length > 9) {
+        display.textContent = displayValue.substring(0, 9);
+    }
+}
+
 
 
